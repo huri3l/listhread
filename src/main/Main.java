@@ -24,7 +24,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
-        BlockingQueue<Song> bqueue = new ArrayBlockingQueue<>(10);
+        BlockingQueue<Song> bqueue = new ArrayBlockingQueue<>(73);
         
         createBands(bqueue);
     }
@@ -50,7 +50,7 @@ public class Main {
             }
             scanner.close();
         } catch (Exception e) {
-            System.out.println("O sistema não conseguiu carregar os dados das bandas!");
+            System.out.println("O sistema nao conseguiu carregar os dados das bandas!");
         }
     }
 }
