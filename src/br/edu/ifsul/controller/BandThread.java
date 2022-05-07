@@ -33,13 +33,44 @@ public class BandThread implements Runnable {
     @Override
     public void run() {
         try {
-            // createSongs();
+            createSongs();
         } catch (Exception e) {
             System.out.println("A banda '" + 
                     getBand().getName() + 
                     "' nao conseguiu produzir a musica!"
             );
             e.printStackTrace();
+        }
+    }
+    
+     public void createSongs() {
+        try {
+            URL url = Main.class.getResource("songs.txt");
+            Scanner scanner = new Scanner(new File(url.getPath()));
+            while (scanner.hasNextLine()) {
+                String[] rawSongData = scanner.nextLine().split(":");
+                String bandNameData = (String) rawSongData[0];
+                String bandName = (String) getBand().getName();                
+                
+                if(bandNameData.trim().equals(bandName.trim())) {
+                    String[] songInfo = rawSongData[1].split("-");
+                    String songName = songInfo[0].trim();
+                    String songAlbum = songInfo[1].trim();
+                    
+                    Song newSong = new Song(songName, songAlbum, getBand());
+                    songs.put(newSong);
+                    Thread.currentThread().sleep((long)(Math.random() * 100000));
+                    System.out.println("Novo lancamento! A banda " + 
+                            Thread.currentThread().getName() + 
+                            " lancou a musica: '" + newSong.getName() + 
+                            "' do album '" + newSong.getAlbum() + 
+                            "' no exato momento: " + 
+                            sdf.format(newSong.getRelease_moment().getTime())
+                    );
+                }
+            }
+        } catch(Exception e) {
+            System.out.println("O sistema nao conseguiu carregar os dados das musicas! ");
         }
     }
 
