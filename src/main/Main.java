@@ -35,7 +35,7 @@ public class Main {
             Scanner scanner = new Scanner(new File(url.getPath()));
             while (scanner.hasNextLine()) {                
                 String[] rawBandData = scanner.nextLine().split("-");
-                String bandName = rawBandData[0];
+                String bandName = rawBandData[0].trim();
 
                 Band current_band = new Band(bandName);
                 String[] members = rawBandData[1].split(";");
