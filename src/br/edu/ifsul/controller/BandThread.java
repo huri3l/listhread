@@ -54,12 +54,14 @@ public class BandThread implements Runnable {
                 
                 if(bandNameData.trim().equals(bandName.trim())) {
                     String[] songInfo = rawSongData[1].split("-");
+                    String songAlbum = songInfo[1].split(";")[0].trim();
+                    String songLyrics = songInfo[1].split(";")[1];
                     String songName = songInfo[0].trim();
-                    String songAlbum = songInfo[1].trim();
                     
-                    Song newSong = new Song(songName, songAlbum, getBand());
+                    Song newSong = new Song(songName, songAlbum, getBand(), songLyrics);
                     Thread.currentThread().sleep((long)(Math.random() * 100000));
                     songs.put(newSong);
+                    System.out.println("Banda " + newSong.getBand().getName() + " Musica: " + newSong.getName());
                     System.out.println("Novo lancamento! A banda " + 
                             Thread.currentThread().getName() + 
                             " lancou a musica: '" + newSong.getName() + 
@@ -70,7 +72,7 @@ public class BandThread implements Runnable {
                 }
             }
         } catch(Exception e) {
-            System.out.println("O sistema nao conseguiu carregar os dados das musicas! ");
+            System.out.println("O sistema nao conseguiu carregar os dados das musicas!");
         }
     }
 

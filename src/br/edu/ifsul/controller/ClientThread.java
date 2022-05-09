@@ -64,22 +64,30 @@ public class ClientThread implements Runnable {
                 System.out.println("Sua escolha: ");
                 menuOption = sc.nextInt();
                 
-                if(menuOption == 0) 
-                    System.out.println("Programa finalizado com sucesso!");
+                if(menuOption == 0) {
+                    System.out.println(
+                            "Menu fechado com sucesso! Voce ainda pode conferir"
+                            + " as notificacoes das musicas que estao sendo "
+                            + "lancadas se deixar essa janela aberta."
+                    );
+                }
+                    
                 else {
                     String currentSong = songsName.get(menuOption - 1);
                     
                     Object[] untypedSongsArray = songs.toArray();
                     String songNameWithoutBand = currentSong.split(":")[1].trim();
-                    Song songIdxInBqueue = findByName(
+                    Song songInBqueue = findByName(
                             untypedSongsArray, songNameWithoutBand
                     );
                     
-                    if(songIdxInBqueue != null) {
+                    if(songInBqueue != null) {
                         System.out.println("Ouvindo a musica '" + 
-                            songIdxInBqueue.getBand().getName() + " - " + 
-                            songIdxInBqueue.getName() + "'"
+                            songInBqueue.getBand().getName() + " - " + 
+                            songInBqueue.getName() + "'"
                         );
+                        System.out.println("Letra:");
+                        System.out.println(songInBqueue.getLyrics().replaceAll("(\\\\r)?\\\\n", System.getProperty("line.separator")));
                     } else {
                         System.out.println("A musica ainda nao foi lancada! "
                                 + "Nossa equipe ira notificar quando a banda "

@@ -15,14 +15,16 @@ import java.util.Objects;
 public class Song implements Serializable {
     private String name;
     private String album;
+    private String lyrics;
     private Band band;
     private Calendar release_moment;
     
-    public Song(String name, String album, Band band) {
+    public Song(String name, String album, Band band, String lyrics) {
         this.release_moment = Calendar.getInstance();
         this.name = name;
         this.album = album;
         this.band = band;
+        this.lyrics = lyrics;
     }
 
     public String getName() {
@@ -39,6 +41,14 @@ public class Song implements Serializable {
 
     public void setAlbum(String album) {
         this.album = album;
+    }
+    
+    public String getLyrics() {
+        return lyrics;
+    }
+
+    public void setLyrics(String lyrics) {
+        this.lyrics = lyrics;
     }
 
     public Band getBand() {
@@ -77,6 +87,6 @@ public class Song implements Serializable {
         }
         final Song other = (Song) obj;
         return Objects.equals(this.name, other.name);
-    }
+    }   
 }
  
