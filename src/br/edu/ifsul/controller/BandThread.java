@@ -5,9 +5,9 @@
 package br.edu.ifsul.controller;
 
 import br.edu.ifsul.model.Band;
-import br.edu.ifsul.model.Musician;
 import br.edu.ifsul.model.Song;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
@@ -22,7 +22,7 @@ public class BandThread implements Runnable {
     private Band band;
     private Song[] songList;
     private final BlockingQueue<Song> songs;
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy "
+    private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy "
             + "HH:mm:ss.SSSSSS"
     );
     
@@ -39,7 +39,6 @@ public class BandThread implements Runnable {
                     getBand().getName() + 
                     "' nao conseguiu produzir a musica!"
             );
-            e.printStackTrace();
         }
     }
     
@@ -61,7 +60,10 @@ public class BandThread implements Runnable {
                     Song newSong = new Song(songName, songAlbum, getBand(), songLyrics);
                     Thread.currentThread().sleep((long)(Math.random() * 100000));
                     songs.put(newSong);
-                    System.out.println("Banda " + newSong.getBand().getName() + " Musica: " + newSong.getName());
+                    System.out.println(
+                            "Banda " + newSong.getBand().getName() + 
+                            " Musica: " + newSong.getName()
+                    );
                     System.out.println("Novo lancamento! A banda " + 
                             Thread.currentThread().getName() + 
                             " lancou a musica: '" + newSong.getName() + 
@@ -71,7 +73,7 @@ public class BandThread implements Runnable {
                     );
                 }
             }
-        } catch(Exception e) {
+        } catch(FileNotFoundException | InterruptedException e) {
             System.out.println("O sistema nao conseguiu carregar os dados das musicas!");
         }
     }

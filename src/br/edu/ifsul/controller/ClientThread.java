@@ -7,18 +7,12 @@ package br.edu.ifsul.controller;
 import br.edu.ifsul.model.Client;
 import br.edu.ifsul.model.Song;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.BlockingQueue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import main.Main;
 
 /**
@@ -26,10 +20,8 @@ import main.Main;
  * @author 20201PF.CC0165
  */
 public class ClientThread implements Runnable {
-    private BlockingQueue<Song> songs;
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy "
-            + "HH:mm:ss.SSSSSS"
-    );
+    private final BlockingQueue<Song> songs;
+    private Client client;
     
     public ClientThread(BlockingQueue<Song> songs) {
         this.songs = songs;
@@ -70,9 +62,7 @@ public class ClientThread implements Runnable {
                             + " as notificacoes das musicas que estao sendo "
                             + "lancadas se deixar essa janela aberta."
                     );
-                }
-                    
-                else {
+                } else {
                     String currentSong = songsName.get(menuOption - 1);
                     
                     Object[] untypedSongsArray = songs.toArray();
@@ -87,7 +77,11 @@ public class ClientThread implements Runnable {
                             songInBqueue.getName() + "'"
                         );
                         System.out.println("Letra:");
-                        System.out.println(songInBqueue.getLyrics().replaceAll("(\\\\r)?\\\\n", System.getProperty("line.separator")));
+                        System.out.println(
+                                songInBqueue.getLyrics()
+                                .replaceAll("(\\\\r)?\\\\n", 
+                                        System.getProperty("line.separator")
+                        ));
                     } else {
                         System.out.println("A musica ainda nao foi lancada! "
                                 + "Nossa equipe ira notificar quando a banda "
@@ -127,5 +121,12 @@ public class ClientThread implements Runnable {
         }
         return null;
     }
-    
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
 }

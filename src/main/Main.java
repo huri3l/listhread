@@ -54,6 +54,7 @@ public class Main {
         System.out.println("Cadastro efetuado com sucesso!");
         
         ClientThread consumer = new ClientThread(bqueue);
+        consumer.setClient(client);
         
         Thread cThread = new Thread(consumer);
         cThread.setName(name);
@@ -63,25 +64,27 @@ public class Main {
     public static void createBands(BlockingQueue<Song> bqueue) {  
         try {
             URL url = Main.class.getResource("bands.txt");
-            Scanner scanner = new Scanner(new File(url.getPath()));
-            while (scanner.hasNextLine()) {                
-                String[] rawBandData = scanner.nextLine().split("-");
-                String bandName = rawBandData[0].trim();
-
-                Band current_band = new Band(bandName);
-                String[] members = rawBandData[1].split(";");
-                current_band.addMembers(members);
-
-                BandThread producer = new BandThread(bqueue);
-                producer.setBand(current_band);
-           
-                Thread pThread = new Thread(producer);
-                pThread.setName(bandName);
-                pThread.start();
+            try (Scanner scanner = new Scanner(new File(url.getPath()))) {
+                while (scanner.hasNextLine()) {
+                    String[] rawBandData = scanner.nextLine().split("-");
+                    String bandName = rawBandData[0].trim();
+                    
+                    Band current_band = new Band(bandName);
+                    String[] members = rawBandData[1].split(";");
+                    current_band.addMembers(members);
+                    
+                    BandThread producer = new BandThread(bqueue);
+                    producer.setBand(current_band);
+                    
+                    Thread pThread = new Thread(producer);
+                    pThread.setName(bandName);
+                    pThread.start();
+                }
             }
-            scanner.close();
         } catch (Exception e) {
-            System.out.println("O sistema nao conseguiu carregar os dados das bandas!");
+            System.out.println(
+                    "O sistema nao conseguiu carregar os dados das bandas!"
+            );
         }
     }
 }
