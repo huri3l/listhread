@@ -5,7 +5,9 @@
 package main;
 
 import br.edu.ifsul.controller.BandThread;
+import br.edu.ifsul.controller.ClientThread;
 import br.edu.ifsul.model.Band;
+import br.edu.ifsul.model.Client;
 import br.edu.ifsul.model.Song;
 import java.io.File;
 import java.io.IOException;
@@ -26,10 +28,39 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BlockingQueue<Song> bqueue = new ArrayBlockingQueue<>(73);
         
+        createClient(bqueue);
+        
         createBands(bqueue);
     }
     
-    public static void createBands(BlockingQueue<Song> bqueue) throws IOException {  
+    public static void createClient(BlockingQueue<Song> bqueue) {
+        Scanner sc = new Scanner(System.in);
+        
+        System.out.println("Ola! Seja bem-vindo ao Listhread, o servico mais "
+                + "rapido de entrega de musica!"
+        );
+        System.out.println("Para que possa desfrutar do "
+                + "nosso servico, precisamos de alguns dados. " +
+                "Esses dados serao usados para lhe notificar sobre "
+                + "o lancamento de novas musicas.");
+        System.out.println("Por favor, nos informe seu nome: ");
+        String name = sc.nextLine();
+        System.out.println("Maravilha " + name + "! Agora, nos informe "
+                + "seu e-mail (Exemplo: email@gmail.com): "
+        );
+        String email = sc.nextLine();
+        
+        Client client = new Client(name, email);
+        System.out.println("Cadastro efetuado com sucesso!");
+        
+        ClientThread consumer = new ClientThread(bqueue);
+        
+        Thread cThread = new Thread(consumer);
+        cThread.setName(name);
+        cThread.start();
+    }
+    
+    public static void createBands(BlockingQueue<Song> bqueue) {  
         try {
             URL url = Main.class.getResource("bands.txt");
             Scanner scanner = new Scanner(new File(url.getPath()));

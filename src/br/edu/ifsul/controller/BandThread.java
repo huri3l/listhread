@@ -58,8 +58,8 @@ public class BandThread implements Runnable {
                     String songAlbum = songInfo[1].trim();
                     
                     Song newSong = new Song(songName, songAlbum, getBand());
-                    songs.put(newSong);
                     Thread.currentThread().sleep((long)(Math.random() * 100000));
+                    songs.put(newSong);
                     System.out.println("Novo lancamento! A banda " + 
                             Thread.currentThread().getName() + 
                             " lancou a musica: '" + newSong.getName() + 

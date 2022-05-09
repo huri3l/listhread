@@ -16,8 +16,9 @@ public class Client implements Serializable {
     private String email;
     private Song current_song;
     
-    public Client() {
-        
+    public Client(String name, String email) {
+        this.name = name;
+        this.email = email;
     }
     
     public void Listen(Song song) {
