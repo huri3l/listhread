@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package br.edu.ifsul.model;
 
 import java.io.Serializable;
@@ -9,8 +5,10 @@ import java.util.Calendar;
 import java.util.Objects;
 
 /**
- *
- * @author 20201PF.CC0165
+ * Song is the class that carry the informations about the song that the client
+ * will listen to
+ * 
+ * @author Huriel Ferreira Lopes
  */
 public class Song implements Serializable {
     private String name;

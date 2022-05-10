@@ -1,15 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package br.edu.ifsul.model;
 
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
- *
- * @author 20201PF.CC0165
+ * Musician is one of the persons that compose a Band
+ * 
+ * @author Huriel Ferreira Lopes
  */
 public class Musician implements Serializable {
     private String name;

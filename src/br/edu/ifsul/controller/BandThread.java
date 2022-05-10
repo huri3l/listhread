@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package br.edu.ifsul.controller;
 
 import br.edu.ifsul.model.Band;
@@ -15,8 +11,14 @@ import java.util.concurrent.BlockingQueue;
 import main.Main;
 
 /**
- *
- * @author 20201PF.CC0165
+ * BandThread is the place where the Bands (Producers) will create their songs
+ * These songs data will be picked from a Text File (songs.txt) and filled
+ * in the BlockingQueue as a Song object 
+ * 
+ * @see br.edu.ifsul.model.Song to check how Songs are structured
+ * @see main.Main to check how Bands are created
+ * 
+ * @author Huriel Ferreira Lopes
  */
 public class BandThread implements Runnable {
     private Band band;
@@ -42,7 +44,14 @@ public class BandThread implements Runnable {
         }
     }
     
-     public void createSongs() {
+    /**
+     *
+     * This method creates a song using the "songs.txt" file data and includes it
+     * on the songs BlockingQueue
+     * 
+     * @since 1.0
+     */
+    public void createSongs() {
         try {
             URL url = Main.class.getResource("songs.txt");
             Scanner scanner = new Scanner(new File(url.getPath()));
@@ -60,10 +69,6 @@ public class BandThread implements Runnable {
                     Song newSong = new Song(songName, songAlbum, getBand(), songLyrics);
                     Thread.currentThread().sleep((long)(Math.random() * 100000));
                     songs.put(newSong);
-                    System.out.println(
-                            "Banda " + newSong.getBand().getName() + 
-                            " Musica: " + newSong.getName()
-                    );
                     System.out.println("Novo lancamento! A banda " + 
                             Thread.currentThread().getName() + 
                             " lancou a musica: '" + newSong.getName() + 

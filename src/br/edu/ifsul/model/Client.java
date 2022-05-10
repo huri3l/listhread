@@ -1,28 +1,21 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package br.edu.ifsul.model;
 
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
- *
- * @author 20201PF.CC0165
+ * Client is the one using the app, that will listen to the songs
+ * It holds informations about the client that is important to a few tasks
+ * 
+ * @author Huriel Ferreira Lopes
  */
 public class Client implements Serializable {
     private String name;
     private String email;
-    private Song current_song;
     
     public Client(String name, String email) {
         this.name = name;
         this.email = email;
-    }
-    
-    public void Listen(Song song) {
-        
     }
 
     public String getName() {
@@ -39,14 +32,6 @@ public class Client implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Song getCurrent_song() {
-        return current_song;
-    }
-
-    public void setCurrent_song(Song current_song) {
-        this.current_song = current_song;
     }
 
     @Override
@@ -70,6 +55,4 @@ public class Client implements Serializable {
         final Client other = (Client) obj;
         return Objects.equals(this.name, other.name);
     }
-    
-    
 }

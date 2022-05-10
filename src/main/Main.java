@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package main;
 
 import br.edu.ifsul.controller.BandThread;
@@ -18,12 +14,13 @@ import java.util.concurrent.BlockingQueue;
 
 /**
  *
- * @author 20201PF.CC0165
+ * @author Huriel Ferreira Lopes
  */
 public class Main {
 
     /**
      * @param args the command line arguments
+     * @throws java.io.IOException
      */
     public static void main(String[] args) throws IOException {
         BlockingQueue<Song> bqueue = new ArrayBlockingQueue<>(73);
@@ -33,6 +30,11 @@ public class Main {
         createBands(bqueue);
     }
     
+    /**
+     * This method is responsible for creating the client that will use the app
+     * 
+     * @param bqueue is the BlockingQueue with the songs that the client can listen to
+     */
     public static void createClient(BlockingQueue<Song> bqueue) {
         Scanner sc = new Scanner(System.in);
         
@@ -61,6 +63,11 @@ public class Main {
         cThread.start();
     }
     
+    /**
+     * This method is responsible for creating the Bands (Producers)
+     *
+     * @param bqueue is the BlockingQueue with the songs that the bands will produce
+     */
     public static void createBands(BlockingQueue<Song> bqueue) {  
         try {
             URL url = Main.class.getResource("bands.txt");
