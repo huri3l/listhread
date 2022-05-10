@@ -64,9 +64,8 @@ public class ClientThread implements Runnable {
                 String song = scanner.nextLine().split("-")[0];
                 System.out.println(songIdx + " - Ouvir " + song);
 
-                if (menuIdx == 0) {
+                if (menuIdx == 0)
                     songsName.add(song.trim());
-                }
 
                 songIdx++;
             }
@@ -76,13 +75,12 @@ public class ClientThread implements Runnable {
 
             if (menuOption == 0) {
                 System.out.println(
-                        "Menu fechado com sucesso! Voce ainda pode conferir"
-                        + " as notificacoes das musicas que estao sendo "
-                        + "lancadas se deixar essa janela aberta."
+                    "Menu fechado com sucesso! Voce ainda pode conferir"
+                    + " as notificacoes das musicas que estao sendo "
+                    + "lancadas se deixar essa janela aberta."
                 );
-            } else {
+            } else
                 playSong(songsName, menuOption, songs);
-            }
 
             menuIdx++;
         } while (menuOption != 0);
@@ -98,39 +96,40 @@ public class ClientThread implements Runnable {
      * @since 1.1
      */
     public static void playSong(
-            List<String> songsName, 
-            int menuOption, 
-            BlockingQueue<Song> songs
+        List<String> songsName, 
+        int menuOption, 
+        BlockingQueue<Song> songs
     ) throws IOException {
         String currentSong = songsName.get(menuOption - 1);
 
         Object[] untypedSongsArray = songs.toArray();
         String songNameWithoutBand = currentSong.split(":")[1].trim();
         Song songInBqueue = findByName(
-                untypedSongsArray, songNameWithoutBand
+            untypedSongsArray, songNameWithoutBand
         );
 
         if (songInBqueue != null) {
             System.out.println("Ouvindo a musica '"
-                    + songInBqueue.getBand().getName() + " - "
-                    + songInBqueue.getName() + "'"
+                + songInBqueue.getBand().getName() + " - "
+                + songInBqueue.getName() + "'"
             );
             System.out.println("Letra:");
             System.out.println(
-                    songInBqueue.getLyrics()
-                            .replaceAll("(\\\\r)?\\\\n",
-                                    System.getProperty("line.separator")
-                            ));
+                songInBqueue.getLyrics()
+                    .replaceAll("(\\\\r)?\\\\n",
+                    System.getProperty("line.separator")
+                )
+            );
         } else {
             System.out.println("A musica ainda nao foi lancada! "
-                    + "Nossa equipe ira notificar quando a banda "
-                    + "disponibilizar a musica!"
+                + "Nossa equipe ira notificar quando a banda "
+                + "disponibilizar a musica!"
             );
         }
 
         System.out.println(
-                "Pressione ENTER para ouvir outra "
-                + "musica ou sair do programa!"
+            "Pressione ENTER para ouvir outra "
+            + "musica ou sair do programa!"
         );
         System.in.read();
     }

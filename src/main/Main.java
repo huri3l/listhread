@@ -39,16 +39,16 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         
         System.out.println("Ola! Seja bem-vindo ao Listhread, o servico mais "
-                + "rapido de entrega de musica!"
+            + "rapido de entrega de musica!"
         );
         System.out.println("Para que possa desfrutar do "
-                + "nosso servico, precisamos de alguns dados. " +
-                "Esses dados serao usados para lhe notificar sobre "
-                + "o lancamento de novas musicas.");
+            + "nosso servico, precisamos de alguns dados. " +
+            "Esses dados serao usados para lhe notificar sobre "
+            + "o lancamento de novas musicas.");
         System.out.println("Por favor, nos informe seu nome: ");
         String name = sc.nextLine();
         System.out.println("Maravilha " + name + "! Agora, nos informe "
-                + "seu e-mail (Exemplo: email@gmail.com): "
+            + "seu e-mail (Exemplo: email@gmail.com): "
         );
         String email = sc.nextLine();
         
@@ -90,7 +90,7 @@ public class Main {
             }
         } catch (Exception e) {
             System.out.println(
-                    "O sistema nao conseguiu carregar os dados das bandas!"
+                "O sistema nao conseguiu carregar os dados das bandas!"
             );
         }
     }

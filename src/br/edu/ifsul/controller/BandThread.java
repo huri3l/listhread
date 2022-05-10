@@ -24,11 +24,12 @@ public class BandThread implements Runnable {
     private Band band;
     private Song[] songList;
     private final BlockingQueue<Song> songs;
-    private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy "
-            + "HH:mm:ss.SSSSSS"
-    );
+    private final SimpleDateFormat sdf;
     
     public BandThread(BlockingQueue<Song> songs) {
+        this.sdf = new SimpleDateFormat(
+                "dd/MM/yyyy HH:mm:ss.SSSSSS"
+        );
         this.songs = songs;
     }
     
@@ -38,8 +39,8 @@ public class BandThread implements Runnable {
             createSongs();
         } catch (Exception e) {
             System.out.println("A banda '" + 
-                    getBand().getName() + 
-                    "' nao conseguiu produzir a musica!"
+                getBand().getName() + 
+                "' nao conseguiu produzir a musica!"
             );
         }
     }
@@ -70,11 +71,11 @@ public class BandThread implements Runnable {
                     Thread.currentThread().sleep((long)(Math.random() * 100000));
                     songs.put(newSong);
                     System.out.println("Novo lancamento! A banda " + 
-                            Thread.currentThread().getName() + 
-                            " lancou a musica: '" + newSong.getName() + 
-                            "' do album '" + newSong.getAlbum() + 
-                            "' no exato momento: " + 
-                            sdf.format(newSong.getRelease_moment().getTime())
+                        Thread.currentThread().getName() + 
+                        " lancou a musica: '" + newSong.getName() + 
+                        "' do album '" + newSong.getAlbum() + 
+                        "' no exato momento: " + 
+                        sdf.format(newSong.getRelease_moment().getTime())
                     );
                 }
             }
